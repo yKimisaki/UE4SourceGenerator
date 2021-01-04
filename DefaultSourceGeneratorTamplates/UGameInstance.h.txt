@@ -1,0 +1,11 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Engine/GameInstance.h"
+#include "{FileName}.generated.h"
+
+UCLASS()
+class {PROJECT_API} {TypeName} : public UGameInstance
+{
+	GENERATED_BODY()
+};

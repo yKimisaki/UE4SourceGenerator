@@ -1,0 +1,10 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "{FileName}.generated.h"
+
+UCLASS()
+class {PROJECT_API} {TypeName} : public UObject
+{
+	GENERATED_BODY()
+};

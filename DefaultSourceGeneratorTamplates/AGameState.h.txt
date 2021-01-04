@@ -1,0 +1,11 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/GameState.h"
+#include "{FileName}.generated.h"
+
+UCLASS()
+class {PROJECT_API} {TypeName} : public AGameState
+{
+	GENERATED_BODY()
+};

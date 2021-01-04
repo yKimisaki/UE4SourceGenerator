@@ -1,0 +1,11 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Engine/LevelScriptActor.h"
+#include "{FileName}.generated.h"
+
+UCLASS()
+class {PROJECT_API} {TypeName} : public ALevelScriptActor
+{
+	GENERATED_BODY()
+};

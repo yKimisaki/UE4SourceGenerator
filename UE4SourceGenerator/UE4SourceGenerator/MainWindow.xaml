@@ -1,0 +1,34 @@
+﻿<Window x:Class="UE4SourceGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UE4SourceGenerator"
+        mc:Ignorable="d"
+        Title="UE4SrouceGenerator" Height="222" Width="483">
+    <Grid >
+        <Label Content="Output Dir" HorizontalAlignment="Left" Margin="6,7,0,0" VerticalAlignment="Top"/>
+        <TextBox Margin="83,11,109,0" TextWrapping="Wrap" Name="Output" Height="37" VerticalAlignment="Top"/>
+        <Button Content="Select" Margin="0,10,47,0" Height="20" VerticalAlignment="Top" Click="SelectDirectory" HorizontalAlignment="Right" Width="57"/>
+        <TextBlock HorizontalAlignment="Left" Margin="84,53,0,0" Text="No selected" TextWrapping="Wrap" Name="ApiName" Height="16" VerticalAlignment="Top"/>
+        <Label Content="Type Name" HorizontalAlignment="Left" Margin="6,70,0,0" VerticalAlignment="Top"/>
+        <TextBox Margin="84,74,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="291" Height="18" VerticalAlignment="Top" Name="TypeName"/>
+        <Label Content="Base Type" Margin="6,95,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"/>
+        <ComboBox Margin="84,97,0,0" HorizontalAlignment="Left" Width="187" Height="22" VerticalAlignment="Top" Name="BaseType">
+            <!--<ComboBoxItem>UObject</ComboBoxItem>
+            <ComboBoxItem>AActor</ComboBoxItem>
+            <ComboBoxItem>APawn</ComboBoxItem>
+            <ComboBoxItem>ACharacter</ComboBoxItem>
+            <ComboBoxItem>UActorComponent</ComboBoxItem>
+            <ComboBoxItem>USceneComponent</ComboBoxItem>
+            <ComboBoxItem>ALevelScriptActor</ComboBoxItem>
+            <ComboBoxItem>UGameInstance</ComboBoxItem>
+            <ComboBoxItem>UGameInstanceSubsystem</ComboBoxItem>
+            <ComboBoxItem>AGameMode</ComboBoxItem>
+            <ComboBoxItem>AGameState</ComboBoxItem>
+            <ComboBoxItem>UInterface</ComboBoxItem>
+            <ComboBoxItem>UBlueprintFunctionLibrary</ComboBoxItem>-->
+        </ComboBox>
+        <Button Content="Generate" Margin="42,131,0,0" HorizontalAlignment="Left" Width="79" Height="20" VerticalAlignment="Top" Click="Generate"/>
+    </Grid>
+</Window>
