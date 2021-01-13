@@ -7,7 +7,7 @@ You can share template files using version control for each project.
 
 ![image](https://user-images.githubusercontent.com/1702680/104420505-4f25f680-55bd-11eb-9697-13bf14238c01.png)
 
-1. Select output directory. A pair file will be generated on this directory.
+1. Select output directory. A pair files will be generated on this directory.
 2. If you select output directory, this tool search .uproject file from related directories, and show PROJECT_API above "Type Name" text box.
 3. "Type Name" must contains UE4 style prefix, like UHogeObject or AFugaActor.
 4. Select "Base Type" and click "Generate" button. 
@@ -22,6 +22,7 @@ Next, create UMyUObject.h.txt like following.
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Project/CustomTypes/MyUObject.h"
 #include "{FileName}.generated.h"
 
 UCLASS()
