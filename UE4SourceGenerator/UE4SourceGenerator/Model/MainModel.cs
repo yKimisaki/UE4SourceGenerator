@@ -95,7 +95,7 @@ namespace UE4SourceGenerator.Model
             var header = "";
             if (baseType == ValueTypeKey)
             {
-                header = GetValueType(typeName);
+                header = GetValueType(fileName, typeName, toFile);
             }
             else
             {
@@ -149,24 +149,51 @@ namespace UE4SourceGenerator.Model
             return $@"#include ""{fileName}.h""";
         }
 
-        string GetValueType(string typeName)
+        string GetValueType(string fileName, string typeName, bool toFile)
         {
             if (typeName[0] == 'E')
             {
-                return $@"UENUM(BlueprintType)
+                if (toFile)
+                {
+                    return $@"#include ""CoreMinimal.h""
+
+UENUM(BlueprintType)
 enum class {typeName} : uint8
 {{
     None = 0,
 }};";
+                }
+                else
+                {
+                    return $@"UENUM(BlueprintType)
+enum class {typeName} : uint8
+{{
+    None = 0,
+}};";
+                }
             }
 
             if (typeName[0] == 'F')
             {
-                return $@"USTRUCT(BlueprintType)
+                if (toFile)
+                {
+                    return $@"#include ""CoreMinimal.h""
+#include ""{fileName}.generated.h""
+
+USTRUCT(BlueprintType)
 struct {ProjectApiName} {typeName}
 {{
     GENERATED_BODY()
 }};";
+                }
+                else
+                {
+                    return $@"USTRUCT(BlueprintType)
+struct {ProjectApiName} {typeName}
+{{
+    GENERATED_BODY()
+}};";
+                }
             }
 
             throw new SourceGenerateException($"A prefix of {typeName} is not E ro F.");
