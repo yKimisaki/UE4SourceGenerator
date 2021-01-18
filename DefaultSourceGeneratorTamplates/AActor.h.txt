@@ -4,7 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "{FileName}.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class {PROJECT_API} {TypeName} : public AActor
 {
 	GENERATED_BODY()

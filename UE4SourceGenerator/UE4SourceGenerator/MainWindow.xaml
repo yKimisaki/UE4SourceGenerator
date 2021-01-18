@@ -14,7 +14,7 @@
         <Label Content="Type Name" HorizontalAlignment="Left" Margin="6,70,0,0" VerticalAlignment="Top"/>
         <TextBox Margin="84,74,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="291" Height="18" VerticalAlignment="Top" Name="TypeName"/>
         <Label Content="Base Type" Margin="6,95,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"/>
-        <ComboBox Margin="84,97,0,0" HorizontalAlignment="Left" Width="187" Height="22" VerticalAlignment="Top" Name="BaseType">
+        <ComboBox Margin="84,97,0,0" HorizontalAlignment="Left" Width="187" Height="22" VerticalAlignment="Top" Name="BaseType" SelectionChanged="BaseType_Selected">
             <!--<ComboBoxItem>UObject</ComboBoxItem>
             <ComboBoxItem>AActor</ComboBoxItem>
             <ComboBoxItem>APawn</ComboBoxItem>
@@ -29,6 +29,7 @@
             <ComboBoxItem>UInterface</ComboBoxItem>
             <ComboBoxItem>UBlueprintFunctionLibrary</ComboBoxItem>-->
         </ComboBox>
-        <Button Content="Generate" Margin="42,131,0,0" HorizontalAlignment="Left" Width="79" Height="20" VerticalAlignment="Top" Click="Generate"/>
+        <Button Content="To File" Margin="331,131,0,0" HorizontalAlignment="Left" Width="105" Height="20" VerticalAlignment="Top" Click="GenerateToFile" Name="GenerateToFileButton"/>
+        <Button Content="To Clipboard" Margin="221,131,0,0" HorizontalAlignment="Left" Width="105" Height="20" VerticalAlignment="Top" Click="GenerateToClipboard" Name="GenerateToClipboardButton"/>
     </Grid>
 </Window>
