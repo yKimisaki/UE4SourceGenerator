@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Windows;
 using UE4SourceGenerator.Properties;
 
 namespace UE4SourceGenerator.Model
 {
     public class MainModel
     {
+        public static readonly string ValueTypeKey = "USTRUCT/UENUM";
+
         public string ProjectApiName { get; private set; } = "";
         public string LastSelectedDirectory { get; private set; } = "C:";
 
@@ -71,21 +74,16 @@ namespace UE4SourceGenerator.Model
             }
         }
 
-        public void Generate(string typeName, string baseType)
+        public void Generate(string typeName, string baseType, bool toFile)
         {
             if (string.IsNullOrWhiteSpace(typeName))
             {
                 throw new SourceGenerateException("Type name is invalid.");
             }
 
-            if (string.IsNullOrWhiteSpace(baseType) || !headerTemplates.ContainsKey(baseType))
+            if (string.IsNullOrWhiteSpace(baseType))
             {
                 throw new SourceGenerateException("Base type is invalid.");
-            }
-
-            if (typeName[0] != baseType[0])
-            {
-                throw new SourceGenerateException("Type name prefix and base type prefix is not same.");
             }
 
             var fileName = typeName.Substring(1);
@@ -94,36 +92,84 @@ namespace UE4SourceGenerator.Model
                 throw new SourceGenerateException("A second char off type name must be upper case.");
             }
 
-            var headerFilePath = Path.Combine(LastSelectedDirectory, $"{fileName}.h");
-            if (File.Exists(headerFilePath))
+            var header = "";
+            if (baseType == ValueTypeKey)
             {
-                throw new SourceGenerateException($"{headerFilePath} exists already.");
+                header = GetValueType(typeName);
             }
-            var sourceFilePath = Path.Combine(LastSelectedDirectory, $"{fileName}.cpp");
-            if (File.Exists(sourceFilePath))
+            else
             {
-                throw new SourceGenerateException($"{sourceFilePath} exists already.");
-            }
+                if (typeName[0] != baseType[0])
+                {
+                    throw new SourceGenerateException("Type name prefix and base type prefix is not same.");
+                }
 
-            var header = headerTemplates[baseType]
-                .Replace("{PROJECT_API}", ProjectApiName)
-                .Replace("{TypeName}", typeName)
-                .Replace("{FileName}", fileName);
-            File.WriteAllText(headerFilePath, header, Encoding.UTF8);
-
-            var source = GetDefaultSource(fileName);
-            if (sourceTemplates.ContainsKey(baseType))
-            {
-                source = sourceTemplates[baseType]
+                header = headerTemplates[baseType]
+                    .Replace("{PROJECT_API}", ProjectApiName)
                     .Replace("{TypeName}", typeName)
                     .Replace("{FileName}", fileName);
             }
-            File.WriteAllText(sourceFilePath, source, Encoding.UTF8);
+            if (toFile)
+            {
+                var headerFilePath = Path.Combine(LastSelectedDirectory, $"{fileName}.h");
+                if (File.Exists(headerFilePath))
+                {
+                    throw new SourceGenerateException($"{headerFilePath} exists already.");
+                }
+
+                File.WriteAllText(headerFilePath, header, Encoding.UTF8);
+            }
+            else
+            {
+                Clipboard.SetText(header);
+            }
+
+            if (baseType != ValueTypeKey)
+            {
+                var source = GetDefaultSource(fileName);
+                if (sourceTemplates.ContainsKey(baseType))
+                {
+                    source = sourceTemplates[baseType]
+                        .Replace("{TypeName}", typeName)
+                        .Replace("{FileName}", fileName);
+                }
+
+                var sourceFilePath = Path.Combine(LastSelectedDirectory, $"{fileName}.cpp");
+                if (File.Exists(sourceFilePath))
+                {
+                    throw new SourceGenerateException($"{sourceFilePath} exists already.");
+                }
+
+                File.WriteAllText(sourceFilePath, source, Encoding.UTF8);
+            }
         }
 
         string GetDefaultSource(string fileName)
         {
             return $@"#include ""{fileName}.h""";
+        }
+
+        string GetValueType(string typeName)
+        {
+            if (typeName[0] == 'E')
+            {
+                return $@"UENUM(BlueprintType)
+enum class {typeName} : uint8
+{{
+    None = 0,
+}};";
+            }
+
+            if (typeName[0] == 'F')
+            {
+                return $@"USTRUCT(BlueprintType)
+struct {ProjectApiName} {typeName}
+{{
+    GENERATED_BODY()
+}};";
+            }
+
+            throw new SourceGenerateException($"A prefix of {typeName} is not E ro F.");
         }
     }
 
