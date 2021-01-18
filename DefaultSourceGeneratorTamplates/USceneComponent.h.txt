@@ -4,7 +4,7 @@
 #include "Components/SceneComponent.h"
 #include "{FileName}.generated.h"
 
-UCLASS()
+UCLASS(meta = (BlueprintSpawnableComponent))
 class {PROJECT_API} {TypeName} : public USceneComponent
 {
 	GENERATED_BODY()

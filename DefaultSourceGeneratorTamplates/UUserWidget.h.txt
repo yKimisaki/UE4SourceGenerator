@@ -1,10 +1,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Blueprint/UserWidget.h"
 #include "{FileName}.generated.h"
 
-UCLASS(Blueprintable, BlueprintType)
-class {PROJECT_API} {TypeName} : public UObject
+UCLASS()
+class {PROJECT_API} {TypeName} : public UUserWidget
 {
 	GENERATED_BODY()
 };
