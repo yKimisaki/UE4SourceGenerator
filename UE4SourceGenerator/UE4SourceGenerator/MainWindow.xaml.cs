@@ -37,10 +37,12 @@ namespace UE4SourceGenerator
 
         private void UpdateView()
         {
+            GenerateToClipboardButton.IsEnabled = ((string)BaseType.SelectedItem == MainModel.ValueTypeKey);
+
             Output.Text = model.LastSelectedDirectory;
             if (model.HeaderTemplates.Keys.Any())
             {
-                BaseType.ItemsSource = model.HeaderTemplates.Keys;
+                BaseType.ItemsSource = new[] { MainModel.ValueTypeKey }.Concat(model.HeaderTemplates.Keys);
             }
             else
             {
@@ -49,11 +51,11 @@ namespace UE4SourceGenerator
             ApiName.Text = model.ProjectApiName;
         }
 
-        private void Generate(object sender, RoutedEventArgs e)
+        private void GenerateToFile(object sender, RoutedEventArgs e)
         {
             try
             {
-                model.Generate(TypeName.Text, (string)BaseType.SelectedItem);
+                model.Generate(TypeName.Text, (string)BaseType.SelectedItem, true);
                 MessageBox.Show($"Succeeded.");
             }
             catch (SourceGenerateException ex)
@@ -64,6 +66,28 @@ namespace UE4SourceGenerator
             {
                 throw;
             }
+        }
+
+        private void GenerateToClipboard(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                model.Generate(TypeName.Text, (string)BaseType.SelectedItem, false);
+                MessageBox.Show($"Succeeded.");
+            }
+            catch (SourceGenerateException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void BaseType_Selected(object sender, RoutedEventArgs e)
+        {
+            UpdateView();
         }
     }
 }
