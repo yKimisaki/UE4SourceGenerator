@@ -37,7 +37,9 @@ namespace UE4SourceGenerator
 
         private void UpdateView()
         {
-            GenerateToClipboardButton.IsEnabled = ((string)BaseType.SelectedItem == MainModel.ValueTypeKey);
+            var baseType = (string)BaseType.SelectedItem;
+            var typeName = TypeName.Text;
+            GenerateToClipboardButton.IsEnabled = (baseType == MainModel.ValueTypeKey);
 
             Output.Text = model.LastSelectedDirectory;
             if (model.HeaderTemplates.Keys.Any())
@@ -49,6 +51,29 @@ namespace UE4SourceGenerator
                 BaseType.ItemsSource = null;
             }
             ApiName.Text = model.ProjectApiName;
+
+            if (!string.IsNullOrWhiteSpace(baseType) && !string.IsNullOrWhiteSpace(typeName))
+            {
+                var prefix = baseType[0].ToString();
+
+                if (baseType == MainModel.ValueTypeKey && typeName[0] != 'E')
+                {
+                    prefix = "F";
+                }
+
+                if (typeName.Length == 1)
+                {
+                    TypeName.Text = prefix;
+                }
+                else if (char.IsLower(typeName[1]))
+                {
+                    TypeName.Text = prefix + typeName;
+                }
+                else
+                {
+                    TypeName.Text = prefix + typeName.Substring(1);
+                }
+            }
         }
 
         private void GenerateToFile(object sender, RoutedEventArgs e)
