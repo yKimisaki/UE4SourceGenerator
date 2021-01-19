@@ -14,10 +14,10 @@ namespace UE4SourceGenerator.Model
         public string ProjectApiName { get; private set; } = "";
         public string LastSelectedDirectory { get; private set; } = "C:";
 
-        private Dictionary<string, string> headerTemplates = new();
+        Dictionary<string, string> headerTemplates = new();
         public IReadOnlyDictionary<string, string> HeaderTemplates => headerTemplates;
 
-        private Dictionary<string, string> sourceTemplates = new();
+        Dictionary<string, string> sourceTemplates = new();
         public IReadOnlyDictionary<string, string> SourceTemplates => sourceTemplates;
 
         public MainModel()
@@ -49,7 +49,7 @@ namespace UE4SourceGenerator.Model
             }
         }
 
-        private void CollectTemplates(string parentDir)
+        void CollectTemplates(string parentDir)
         {
             var templatesPath = Path.Combine(parentDir, "SourceGeneratorTamplates");
             if (Directory.Exists(templatesPath))
@@ -197,13 +197,6 @@ struct {ProjectApiName} {typeName}
             }
 
             throw new SourceGenerateException($"A prefix of {typeName} is not E ro F.");
-        }
-    }
-
-    public class SourceGenerateException : Exception
-    {
-        public SourceGenerateException(string message) : base(message)
-        {
         }
     }
 }

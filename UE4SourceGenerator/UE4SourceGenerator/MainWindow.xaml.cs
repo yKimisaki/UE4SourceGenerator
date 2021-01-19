@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Linq;
 using System.Windows;
 using UE4SourceGenerator.Model;
 using MSAPI = Microsoft.WindowsAPICodePack;
@@ -10,7 +7,7 @@ namespace UE4SourceGenerator
 {
     public partial class MainWindow : Window
     {
-        private MainModel model;
+        MainModel model;
 
         public MainWindow()
         {
@@ -20,7 +17,7 @@ namespace UE4SourceGenerator
             UpdateView();
         }
 
-        private void SelectDirectory(object sender, RoutedEventArgs e)
+        void SelectDirectory(object sender, RoutedEventArgs e)
         {
             var dlg = new MSAPI::Dialogs.CommonOpenFileDialog();
 
@@ -35,7 +32,7 @@ namespace UE4SourceGenerator
             }
         }
 
-        private void UpdateView()
+        void UpdateView()
         {
             var baseType = (string)BaseType.SelectedItem;
             var typeName = TypeName.Text;
@@ -76,7 +73,7 @@ namespace UE4SourceGenerator
             }
         }
 
-        private void GenerateToFile(object sender, RoutedEventArgs e)
+        void GenerateToFile(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -93,7 +90,7 @@ namespace UE4SourceGenerator
             }
         }
 
-        private void GenerateToClipboard(object sender, RoutedEventArgs e)
+        void GenerateToClipboard(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -110,7 +107,7 @@ namespace UE4SourceGenerator
             }
         }
 
-        private void BaseType_Selected(object sender, RoutedEventArgs e)
+        void BaseType_Selected(object sender, RoutedEventArgs e)
         {
             UpdateView();
         }
