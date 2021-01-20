@@ -24,7 +24,7 @@ namespace UE4SourceGenerator.Command
             {
                 if (listener.TemplateCollector.HeaderTemplates.TryGetValue(listener.SelectedBaseType, out var headerTemplate))
                 {
-                    var header = headerTemplate.Generate(listener.TemplateReplacement, GenerateTo.File);
+                    var header = headerTemplate.Generate(listener.TemplateReplacement, GenerateTo.Clipboard);
 
                     Clipboard.SetText(header);
 
