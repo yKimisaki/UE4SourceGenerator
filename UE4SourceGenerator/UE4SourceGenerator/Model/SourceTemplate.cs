@@ -6,6 +6,8 @@
         {
             string content;
 
+            public static ITemplate DefaultSourceTemplate => new SourceTemplate(@"#include ""{FileName}.h""");
+
             public SourceTemplate(string content)
             {
                 this.content = content;

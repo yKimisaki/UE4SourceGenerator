@@ -48,5 +48,45 @@ namespace UE4SourceGenerator.Model
                 .Replace("{TypeName}", replacement.TypeName)
                 .Replace("{FileName}", replacement.FileName);
         }
+
+        public static string GetPrefix(this string typeNameOrTypeKey)
+        {
+            if (typeNameOrTypeKey.IsValueTypeKey())
+            {
+                if (typeNameOrTypeKey == Constants.StructTypeKey)
+                    return "F";
+                if (typeNameOrTypeKey == Constants.EnumTypeKey)
+                    return "E";
+            }
+
+            if (typeNameOrTypeKey.IsValidTypeName())
+                return typeNameOrTypeKey[0].ToString();
+
+            return "U";
+        }
+
+        public static string CorrectTypeName(this string originalTypeName, string baseType)
+        {
+            var baseTypePrefix = baseType.GetPrefix();
+
+            if (!originalTypeName.IsValidTypeName())
+            {
+                if (!string.IsNullOrWhiteSpace(originalTypeName) && originalTypeName.Length > 1)
+                {
+                    if (!char.IsUpper(originalTypeName[1]))
+                        return originalTypeName.GetPrefix() + originalTypeName;
+                    else
+                        return originalTypeName.GetPrefix() + originalTypeName.Substring(1);
+                }
+                return baseTypePrefix;
+            }
+
+            if (originalTypeName.GetPrefix() == baseTypePrefix)
+            {
+                return originalTypeName;
+            }
+
+            return baseTypePrefix + originalTypeName.Substring(1);
+        }
     }
 }

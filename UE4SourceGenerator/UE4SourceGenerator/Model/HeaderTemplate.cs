@@ -7,6 +7,9 @@
             HeaderType headerType;
             string content;
 
+            public static ITemplate StructTemplate => new HeaderTemplate(HeaderType.Struct, "");
+            public static ITemplate EnumTemplate => new HeaderTemplate(HeaderType.Enum, "");
+
             public HeaderTemplate(HeaderType headerType, string content)
             {
                 this.headerType = headerType;
@@ -76,7 +79,7 @@ enum class {TypeName} : uint8
         static HeaderType GetHeaderType(string fileName)
         {
             if (fileName.HasObjectTypePrefix()) return HeaderType.Object;
-            if (fileName.HasActorTypePrefix()) return HeaderType.Object;
+            if (fileName.HasActorTypePrefix()) return HeaderType.Actor;
 
             throw new TemplateCollectException("Templace file name prefix must be U or A.");
         }
