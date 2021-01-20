@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using UE4SourceGenerator.Command;
 using UE4SourceGenerator.Model;
 using UE4SourceGenerator.Properties;
@@ -12,9 +13,9 @@ namespace UE4SourceGenerator.ViewModel
         TemplateCollector templateCollector = new();
         TemplateCollector IOnGenerateListener.TemplateCollector => templateCollector;
 
-        public SelectDirectoryCommand SelectDirectory { get; }
-        public GenerateToFileCommand GenerateToFile { get; }
-        public GenerateToClipboardCommand GenerateToClipboard { get; }
+        public ICommand SelectDirectory { get; }
+        public ICommand GenerateToFile { get; }
+        public ICommand GenerateToClipboard { get; }
 
         string outputDirectory;
         public string OutputDirectory
@@ -52,7 +53,7 @@ namespace UE4SourceGenerator.ViewModel
                 selectedBaseType = value;
                 RaisePropertyChanged(nameof(SelectedBaseType));
 
-                GenerateToClipboard.RaiseCanExecuteChanged();
+                (GenerateToClipboard as GenerateToClipboardCommand)?.RaiseCanExecuteChanged();
 
                 TypeName = typeName.CorrectTypeName(selectedBaseType);
             }
@@ -82,9 +83,9 @@ namespace UE4SourceGenerator.ViewModel
 
         public MainViewModel()
         {
-            SelectDirectory = new(this);
-            GenerateToFile = new(this);
-            GenerateToClipboard = new(this);
+            SelectDirectory = new SelectDirectoryCommand(this);
+            GenerateToFile = new GenerateToFileCommand(this);
+            GenerateToClipboard = new GenerateToClipboardCommand(this);
 
             OutputDirectory = Settings.Default.LastSelectedDirectory;
         }
