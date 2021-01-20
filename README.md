@@ -16,7 +16,7 @@ You can share template files using version control for each project.
 
 For example, think about the case that create a new class inherited UMyObject class. (UMyObject is project domain type.)
 At first, you have to create "SourceGeneratorTamplates" directory at same hierarchy as .uproject file.
-Next, create UMyUObject.h.txt like following.
+Next, create UMyObject.h.txt like following.
 
 ```
 #pragma once
@@ -26,7 +26,7 @@ Next, create UMyUObject.h.txt like following.
 #include "{FileName}.generated.h"
 
 UCLASS()
-class {PROJECT_API} {TypeName} : public UMyUObject
+class {PROJECT_API} {TypeName} : public UMyObject
 {
 	GENERATED_BODY()
 };
