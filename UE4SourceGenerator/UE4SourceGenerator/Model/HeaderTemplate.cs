@@ -44,7 +44,9 @@ struct {PROJECT_API} {TypeName}
     GENERATED_BODY()
 };";
 
-            const string StructToFile = @"#include ""CoreMinimal.h""
+            const string StructToFile = @"#pragma once
+
+#include ""CoreMinimal.h""
 #include ""{FileName}.generated.h""
 
 USTRUCT(BlueprintType)
@@ -59,7 +61,9 @@ enum class {TypeName} : uint8
     None = 0,
 };";
 
-            const string EnumToFIle = @"#include ""CoreMinimal.h""
+            const string EnumToFIle = @"#pragma once
+
+#include ""CoreMinimal.h""
 
 UENUM(BlueprintType)
 enum class {TypeName} : uint8
