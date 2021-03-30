@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace UE4SourceGenerator.Model
@@ -87,6 +88,11 @@ namespace UE4SourceGenerator.Model
             }
 
             return baseTypePrefix + originalTypeName.Substring(1);
+        }
+
+        public static string ToPrivateDirectory(this string publicDirectory)
+        {
+            return publicDirectory.Replace("/Public", "/Private").Replace("\\Public", "\\Private");
         }
     }
 }

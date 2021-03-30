@@ -43,7 +43,7 @@ namespace UE4SourceGenerator.Command
                     if (listener.TemplateCollector.SourceTemplates.TryGetValue(listener.SelectedBaseType, out var sourceTemplate))
                     {
                         var source = sourceTemplate.Generate(listener.TemplateReplacement, GenerateTo.File);
-                        var sourceFilePath = Path.Combine(listener.OutputDirectory, listener.TemplateReplacement.FileName + ".cpp");
+                        var sourceFilePath = Path.Combine(listener.OutputDirectory.ToPrivateDirectory(), listener.TemplateReplacement.FileName + ".cpp");
                         if (File.Exists(sourceFilePath))
                         {
                             throw new SourceGenerateException($"{sourceFilePath} exists already.");
