@@ -51,9 +51,9 @@ struct {PROJECT_API} {TypeName}
 
 USTRUCT(BlueprintType)
 struct {PROJECT_API} {TypeName}
-{{
+{
     GENERATED_BODY()
-}};";
+};";
 
             const string EnumToClipboard = @"UENUM(BlueprintType)
 enum class {TypeName} : uint8
