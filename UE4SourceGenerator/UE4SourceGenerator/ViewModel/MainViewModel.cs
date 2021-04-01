@@ -65,7 +65,7 @@ namespace UE4SourceGenerator.ViewModel
             get => typeName;
             set
             {
-                typeName = value;
+                typeName = value.CorrectTypeName(selectedBaseType);
                 RaisePropertyChanged(nameof(TypeName));
             }
         }

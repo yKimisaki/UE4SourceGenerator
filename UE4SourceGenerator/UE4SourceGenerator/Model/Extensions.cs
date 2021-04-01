@@ -74,10 +74,12 @@ namespace UE4SourceGenerator.Model
             {
                 if (!string.IsNullOrWhiteSpace(originalTypeName) && originalTypeName.Length > 1)
                 {
-                    if (!char.IsUpper(originalTypeName[1]))
-                        return originalTypeName.GetPrefix() + originalTypeName;
+                    if (char.IsLower(originalTypeName[0]))
+                        return baseTypePrefix + char.ToUpper(originalTypeName[0]) + originalTypeName.Substring(1);
+                    else if (char.IsLower(originalTypeName[1]))
+                        return baseTypePrefix + originalTypeName;
                     else
-                        return originalTypeName.GetPrefix() + originalTypeName.Substring(1);
+                        return baseTypePrefix + originalTypeName.Substring(1);
                 }
                 return baseTypePrefix;
             }
