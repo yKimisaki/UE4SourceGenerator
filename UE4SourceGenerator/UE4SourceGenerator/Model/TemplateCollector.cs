@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace UE4SourceGenerator.Model
@@ -24,10 +25,14 @@ namespace UE4SourceGenerator.Model
             CollectTemplatesCore(Directory.GetCurrentDirectory());
             for (var d = searchDirectory; d != Directory.GetDirectoryRoot(d); d = Directory.GetParent(d)?.FullName ?? "")
             {
-                var uprojectFIles = Directory.GetFiles(d, "*.uproject");
-                if (uprojectFIles.Length == 1)
+                var moduleFiles = Directory.GetFiles(d, "*.uproject");
+                if (!moduleFiles.Any())
                 {
-                    ProjectApi = $"{Path.GetFileNameWithoutExtension(uprojectFIles[0]).ToUpper()}_API";
+                    moduleFiles = Directory.GetFiles(d, "*.uplugin");
+                }
+                if (moduleFiles.Any())
+                {
+                    ProjectApi = $"{Path.GetFileNameWithoutExtension(moduleFiles[0]).ToUpper()}_API";
                     CollectTemplatesCore(d);
                     break;
                 }
