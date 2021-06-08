@@ -23,8 +23,19 @@ namespace UE4SourceGenerator.Model
             headerTemplates.Add(Constants.EnumTypeKey, HeaderTemplate.EnumTemplate);
 
             CollectTemplatesCore(Directory.GetCurrentDirectory());
+            if (string.IsNullOrWhiteSpace(searchDirectory))
+            {
+                return;
+            }
+
+            bool isSucceeded = false;
             for (var d = searchDirectory; d != Directory.GetDirectoryRoot(d); d = Directory.GetParent(d)?.FullName ?? "")
             {
+                if (!Directory.Exists(d))
+                {
+                    continue;
+                }
+
                 var moduleFiles = Directory.GetFiles(d, "*.uproject");
                 if (!moduleFiles.Any())
                 {
@@ -32,10 +43,16 @@ namespace UE4SourceGenerator.Model
                 }
                 if (moduleFiles.Any())
                 {
+                    isSucceeded = true;
                     ProjectApi = $"{Path.GetFileNameWithoutExtension(moduleFiles[0]).ToUpper()}_API";
                     CollectTemplatesCore(d);
                     break;
                 }
+            }
+
+            if (!Directory.Exists(searchDirectory) && isSucceeded)
+            {
+                Directory.CreateDirectory(searchDirectory);
             }
         }
 
