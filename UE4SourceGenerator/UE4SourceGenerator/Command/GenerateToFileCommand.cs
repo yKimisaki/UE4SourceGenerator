@@ -30,7 +30,8 @@ namespace UE4SourceGenerator.Command
 
         public void Execute(object parameter)
         {
-            try {
+            try
+            {
                 if (listener.TemplateCollector.HeaderTemplates.TryGetValue(listener.SelectedBaseType, out var headerTemplate))
                 {
                     var header = headerTemplate.Generate(listener.TemplateReplacement, GenerateTo.File);

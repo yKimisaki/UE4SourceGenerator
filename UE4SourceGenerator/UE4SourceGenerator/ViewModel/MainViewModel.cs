@@ -29,8 +29,7 @@ namespace UE4SourceGenerator.ViewModel
                     Settings.Default.Save();
 
                     RaisePropertyChanged(nameof(OutputDirectory));
-
-                    templateCollector.CollectTemplates(outputDirectory);
+                    templateCollector.CollectTemplates(OutputDirectory);
                     RaisePropertyChanged(nameof(ApiName));
                     RaisePropertyChanged(nameof(BaseTypes));
                 }
