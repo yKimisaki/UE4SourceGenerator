@@ -2,10 +2,18 @@
 
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
+#include "Engine/EngineBaseTypes.h"
 #include "{FileName}.generated.h"
 
 UCLASS(meta = (BlueprintSpawnableComponent))
 class {PROJECT_API} {TypeName} : public USceneComponent
 {
 	GENERATED_BODY()
+
+public:
+
+	{TypeName}(const FObjectInitializer& ObjectInitializer);
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 };

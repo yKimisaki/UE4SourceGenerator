@@ -1,0 +1,18 @@
+#include "{FileName}.h"
+
+{TypeName}::{TypeName}(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer)
+{
+    PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bStartWithTickEnabled = true;
+}
+
+void {TypeName}::BeginPlay()
+{
+    Super::BeginPlay();
+}
+
+void {TypeName}::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+}

@@ -8,4 +8,10 @@ UCLASS()
 class {PROJECT_API} {TypeName} : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+		int32 BindablePorperty;
+
 };
