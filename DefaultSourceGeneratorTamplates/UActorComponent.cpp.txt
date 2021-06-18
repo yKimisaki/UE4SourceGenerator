@@ -1,0 +1,18 @@
+#include "{FileName}.h"
+
+{TypeName}::{TypeName}(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer)
+{
+    PrimaryComponentTick.bCanEverTick = true;
+    PrimaryComponentTick.bStartWithTickEnabled = true;
+}
+
+void {TypeName}::BeginPlay()
+{
+    Super::BeginPlay();
+}
+
+void {TypeName}::TickComponent(float DeltaSeconds, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+    Super::TickComponent(DeltaSeconds, TickType, ThisTickFunction);
+}

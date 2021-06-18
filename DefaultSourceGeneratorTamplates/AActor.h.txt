@@ -8,4 +8,11 @@ UCLASS(Blueprintable, BlueprintType)
 class {PROJECT_API} {TypeName} : public AActor
 {
 	GENERATED_BODY()
+
+public:
+
+	{TypeName}(const FObjectInitializer& ObjectInitializer);
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 };

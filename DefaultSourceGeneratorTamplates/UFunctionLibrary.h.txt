@@ -1,11 +1,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Kismet/BlueprintFunctionLibrary.h"
 #include "{FileName}.generated.h"
 
-UCLASS()
-class {PROJECT_API} {TypeName} : public UBlueprintFunctionLibrary
+UCLASS(Blueprintable)
+class {PROJECT_API} {TypeName} : public UObject
 {
 	GENERATED_BODY()
     

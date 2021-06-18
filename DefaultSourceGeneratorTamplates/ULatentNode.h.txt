@@ -1,0 +1,29 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Kismet/BlueprintAsyncActionBase.h"
+#include "{FileName}.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCompleted{FileName}, int32, Result);
+
+UCLASS()
+class {PROJECT_API} {TypeName} : public UBlueprintAsyncActionBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintAssignable)
+		FOnCompleted{FileName} OnCompleted;
+
+public:
+
+	{TypeName}(const FObjectInitializer& ObjectInitializer);
+
+	UFUNCTION(BlueprintCallable, meta=(WorldContext = "WorldContextObject", BlueprintInternalUseOnly = "true"))
+		static {TypeName}* {FileName}(UObject* WorldContextObject);
+	
+	virtual void Activate() override;
+
+	void Complete();
+};

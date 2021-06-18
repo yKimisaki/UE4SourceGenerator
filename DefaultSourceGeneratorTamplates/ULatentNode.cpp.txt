@@ -1,0 +1,24 @@
+#include "{FileName}.h"
+
+{TypeName}::{TypeName}(const FObjectInitializer& ObjectInitializer)
+	:Super(ObjectInitializer)
+{
+}
+
+{TypeName}* {TypeName}::{FileName}(UObject* WorldContextObject)
+{
+	{TypeName}* LatentNode = NewObject<{TypeName}>();
+	LatentNode->RegisterWithGameInstance(WorldContextObject);
+	return LatentNode;
+}
+
+void {TypeName}::Activate()
+{
+	Complete();
+}
+
+void {TypeName}::Complete()
+{
+	OnCompleted.Broadcast(0);
+	SetReadyToDestroy();
+}

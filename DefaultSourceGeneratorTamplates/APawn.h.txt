@@ -8,4 +8,9 @@ UCLASS()
 class {PROJECT_API} {TypeName} : public APawn
 {
 	GENERATED_BODY()
+
+public:
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 };
